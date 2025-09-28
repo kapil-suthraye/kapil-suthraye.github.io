@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kapil Suthraye - Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      line-height: 1.5;
+      color: #111827;
+      background: linear-gradient(180deg,#ffffff 0%, #f8fafc 100%);
+    }
+    header {
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: white;
+      text-align: center;
+      padding: 36px 18px;
+    }
+    header h1 { margin: 0; font-size: 2.1rem; letter-spacing: 0.2px; }
+    header p { margin: 6px 0; font-size: 1.05rem; opacity: 0.95; }
+    nav { margin-top: 10px; }
+    nav a {
+      color: #facc15;
+      margin: 0 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    nav a:hover { text-decoration: underline; }
+
+    main { max-width: 980px; margin: 18px auto; padding: 12px; }
+
+    section {
+      padding: 18px 8px;
+      margin: 6px 0;
+    }
+    h2 { color: #4f46e5; margin: 6px 0 12px 0; font-size: 1.15rem; }
+
+    .top-actions { display:flex; gap:10px; justify-content:center; margin-top:8px; flex-wrap:wrap; }
+    .btn {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform .12s ease, box-shadow .12s ease;
+      box-shadow: 0 6px 18px rgba(59,130,246,0.12);
+      font-size:0.95rem;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(59,130,246,0.16); }
+
+    .card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 6px 18px rgba(17,24,39,0.06);
+      margin-bottom: 10px;
+    }
+
+    /* Accordion */
+    .accordion { border-radius:8px; overflow: hidden; margin-bottom:8px; }
+    .accordion-header {
+      padding: 12px 14px;
+      background: linear-gradient(90deg,#eef2ff, #e0f2fe);
+      cursor: pointer;
+      font-weight: 700;
+      color: #1e293b;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+    .accordion-header:hover { filter:brightness(.98); }
+    .accordion-title { font-size: 0.98rem; }
+    .accordion-caret { transition: transform .25s ease; font-size: 0.92rem; opacity:0.9; }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      background: #fff;
+      transition: max-height .32s ease;
+      padding: 0 14px;
+    }
+    .accordion-content.open { padding: 12px 14px 14px 14px; }
+
+    .meta { font-size: 0.95rem; color:#374151; margin:4px 0; }
+
+    footer {
+      background: #4f46e5;
+      color: white;
+      text-align: center;
+      padding: 18px 10px;
+      margin-top: 10px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    footer a { color: #facc15; margin: 0 8px; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width:760px){
+      header h1 { font-size:1.6rem; }
+      .btn { padding: 8px 12px; font-size:0.9rem; }
+      main { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kapil Narayan Rao Suthraye</h1>
+    <p>Software Engineer • Full Stack Developer • Data Engineer</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="card">
+        <h2>About Me</h2>
+        <p class="meta">Software Engineer with 2+ years of experience in data ingestion and full stack development. Skilled in Python, MS SQL Server, Angular and building reliable data pipelines. Passionate about automation, scalability and operational excellence.</p>
+        <div class="top-actions">
+          <a class="btn" href="Kapil_Software_Engineer_Resume.pdf" target="_blank">📄 View Resume</a>
+          <a class="btn" href="mailto:kapilnarayanraosuthraye@gmail.com">✉️ Email</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Technical Skills</h2>
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Languages & Tools</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta"><strong>List:</strong> Python, SQL, MS SQL Server, Angular, HTML, CSS, .NET, HDFS, GCP, Juniper</p>
+          <p><strong>Details:</strong> Built enterprise Angular front-ends and wrote back-end ingestion scripts in Python; wrote stored procedures and optimized queries in MS SQL Server; developed pipelines that land data into BigQuery and HDFS for analytics.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Data Engineering</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta"><strong>List:</strong> Data ingestion, ETL, batch & real-time feeds, pipeline development, automation</p>
+          <p><strong>Details:</strong> Individually handled ~400 feeds and part of team managing 700+; implemented incremental & full load strategies; designed error-handling, monitoring and alerting for production feeds.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Other Tools</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">JIRA, Shell scripting, CI/CD basics</p>
+          <p><strong>Details:</strong> Automated routine tasks using shell scripts and integrated deployments with CI/CD pipelines. Tracked and managed work using JIRA.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Work Experience</h2>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Software Engineer – LTIMindtree | HSBC (2024–Present)</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Managed 700+ data feeds | Automated GCP key rotation | Built pipelines to BigQuery & Hadoop</p>
+          <p><strong>What I did:</strong> Designed and operated ingestion pipelines from Linux sources into BigQuery/Hadoop for downstream analytics. Implemented automated rotation of JSON keys for GCP targets to avoid feed failures and reduce manual intervention.</p>
+          <p><strong>Impact:</strong> Improved reliability of data feeds and reduced on-call alerts related to credential expiry.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Graduate Engineer Trainee – L&T Construction (2023–2024)</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Built automated wage system | Grievance tracker | Stored procedures</p>
+          <p><strong>What I did:</strong> Developed an Angular front-end and MS SQL Server back-end to automate wage calculation and created a module to log and resolve worker grievances.</p>
+          <p><strong>Impact:</strong> Reduced manual payroll effort and improved transparency for worker issues.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Python Developer Intern – Cognizant (2023)</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Python & SQL projects | Team collaboration</p>
+          <p><strong>What I did:</strong> Completed Python projects that strengthened problem-solving and data processing skills while collaborating with cross-functional teams.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Data Ingestion on GCP</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Tech: Python, GCP, BigQuery, Hadoop</p>
+          <p><strong>Overview:</strong> Designed pipelines to move transactional banking data from Linux sources into BigQuery and HDFS. Implemented monitoring, automated credential management, and retry/error handling.</p>
+          <p><strong>Outcome:</strong> Scaled ingestion to 400+ feeds per person and integrated monitoring dashboards for SLA tracking.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Construction Wage System</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Tech: Angular, MS SQL Server</p>
+          <p><strong>Overview:</strong> Built an application to calculate wages and track worker grievances with reporting stored procedures for management.</p>
+          <p><strong>Outcome:</strong> Automated payroll calculations and reduced errors in wage computation.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Incremental Data Loads</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Tech: Oracle, Linux, Shell scripting</p>
+          <p><strong>Overview:</strong> Performed a one-time 60GB full load and then implemented incremental load patterns to optimize performance and reduce processing time.</p>
+          <p><strong>Outcome:</strong> Reduced load times and improved data freshness for downstream consumers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications">
+      <h2>Certifications</h2>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Data Structures and Algorithms using Python (NPTEL, MTA)</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Learned algorithm design, complexity analysis, and problem-solving using Python.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Angular Certification (Udemy)</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Built end-to-end Angular apps and learned components, routing, and services.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">The Joy of Computing Using Python (NPTEL)</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Hands-on assignments covering Python basics, problem-solving, and data structures.</p>
+        </div>
+      </div>
+
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Certified in Data Structures and Algorithms (Hey Coach)</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Certified competency in core algorithms and interview problem solving.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="achievements">
+      <h2>Achievements</h2>
+      <div class="accordion card">
+        <div class="accordion-header">
+          <span class="accordion-title">Awarded “Super Crew” by LTIMindtree</span>
+          <span class="accordion-caret">➕</span>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Recognized for teamwork and resolving critical client issues at HSBC.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p class="meta">Email: <a href="mailto:kapilnarayanraosuthraye@gmail.com">kapilnarayanraosuthraye@gmail.com</a></p>
+        <p class="meta">LinkedIn: <a href="https://linkedin.com/in/kapil-suthraye-839349194" target="_blank">linkedin.com/in/kapil-suthraye-839349194</a></p>
+        <p class="meta">LeetCode: <a href="https://leetcode.com/u/Kapil_suthraye/" target="_blank">leetcode.com/u/Kapil_suthraye</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Kapil Suthraye | Portfolio Website • Built with HTML, CSS & a bit of JS</p>
+  </footer>
+
+  <script>
+    // Smooth accordion toggle using max-height
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const caret = header.querySelector('.accordion-caret') || header.children[header.children.length-1];
+        const content = header.nextElementSibling;
+
+        // close other open accordions in the same section (optional: allow multiple open by commenting out)
+        const parentSection = header.closest('section');
+        if (parentSection) {
+          parentSection.querySelectorAll('.accordion-content').forEach(c => {
+            if (c !== content) {
+              c.style.maxHeight = null;
+              c.classList.remove('open');
+              const ch = c.previousElementSibling;
+              if (ch) {
+                const cc = ch.querySelector('.accordion-caret');
+                if (cc) cc.textContent = '➕';
+              }
+            }
+          });
+        }
+
+        if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+          content.style.maxHeight = null;
+          content.classList.remove('open');
+          if (caret) caret.textContent = '➕';
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.classList.add('open');
+          if (caret) caret.textContent = '➖';
+        }
+      });
+    });
+
+    // Ensure accordion heights are recalculated on window resize (for responsiveness)
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('.accordion-content.open').forEach(el => {
+        el.style.maxHeight = el.scrollHeight + 'px';
+      });
+    });
+  </script>
+</body>
+</html>
