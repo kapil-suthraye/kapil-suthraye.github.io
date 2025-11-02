@@ -1,368 +1,1051 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kapil Suthraye - Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kapil Suthraye | Software Engineer</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      line-height: 1.5;
-      color: #111827;
-      background: linear-gradient(180deg,#ffffff 0%, #f8fafc 100%);
-    }
-    header {
-      background: linear-gradient(135deg, #4f46e5, #3b82f6);
-      color: white;
-      text-align: center;
-      padding: 36px 18px;
-    }
-    header h1 { margin: 0; font-size: 2.1rem; letter-spacing: 0.2px; }
-    header p { margin: 6px 0; font-size: 1.05rem; opacity: 0.95; }
-    nav { margin-top: 10px; }
-    nav a {
-      color: #facc15;
-      margin: 0 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-    }
-    nav a:hover { text-decoration: underline; }
+    /* =========================
+       Final Portfolio - Soft Pastel Light + Midnight Blue Dark
+       Added: animated sun/moon toggle, gold sparkles, sky backgrounds
+       ========================= */
 
-    main { max-width: 980px; margin: 18px auto; padding: 12px; }
+    :root{
+      /* Light mode */
+      --bg-1: #fffaf8;
+      --bg-2: #fff6f9;
+      --primary: #8b5cf6;
+      --accent: #60a5fa;
+      --muted: #6b7280;
+      --card: rgba(255,255,255,0.92);
+      --glass-border: rgba(255,255,255,0.6);
+      --glass-blur: 10px;
+      --text: #0f172a;
+      --soft-shadow: 0 14px 40px rgba(15,23,42,0.06);
+      --radius: 12px;
+      --sky-day-1: #fce6d6;
+      --sky-day-2: #d7f1ff;
+      --sky-night-1: #0a1628;
+      --sky-night-2: #13233c;
 
-    section {
-      padding: 18px 8px;
-      margin: 6px 0;
-    }
-    h2 { color: #4f46e5; margin: 6px 0 12px 0; font-size: 1.15rem; }
-
-    .top-actions { display:flex; gap:10px; justify-content:center; margin-top:8px; flex-wrap:wrap; }
-    .btn {
-      display: inline-block;
-      padding: 8px 14px;
-      background: #3b82f6;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform .12s ease, box-shadow .12s ease;
-      box-shadow: 0 6px 18px rgba(59,130,246,0.12);
-      font-size:0.95rem;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(59,130,246,0.16); }
-
-    .card {
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 14px;
-      box-shadow: 0 6px 18px rgba(17,24,39,0.06);
-      margin-bottom: 10px;
+      /* Toggle sizes */
+      --toggle-w: 64px;
+      --toggle-h: 36px;
     }
 
-    /* Accordion */
-    .accordion { border-radius:8px; overflow: hidden; margin-bottom:8px; }
-    .accordion-header {
-      padding: 12px 14px;
-      background: linear-gradient(90deg,#eef2ff, #e0f2fe);
-      cursor: pointer;
-      font-weight: 700;
-      color: #1e293b;
-      display:flex;
-      justify-content:space-between;
+    /* Dark theme (Midnight Blue + Cyan Glow) */
+    body.dark {
+      --bg-1: linear-gradient(180deg,#0a1628 0%, #13233c 100%);
+      --bg-2: #0a1628;
+      --primary: #7ce7ff;
+      --accent: #4da8ff;
+      --muted: #c6eefe;
+      --card: rgba(255,255,255,0.04);
+      --glass-border: rgba(124,231,255,0.06);
+      --glass-blur: 12px;
+      --text: #e6f6ff;
+      --soft-shadow: 0 18px 46px rgba(2,6,23,0.48);
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg-1);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition: background .45s ease, color .35s ease;
+      overflow-x:hidden;
+    }
+
+    /* Global smooth property transitions for theme toggle */
+    * { transition: background .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease; }
+
+    /* Top progress bar */
+    #topProgress{ position: fixed; left:0; top:0; height:4px; width:0%; background: linear-gradient(90deg,var(--accent),var(--primary)); z-index:99999; transition: width .12s linear; }
+
+    /* Preloader */
+    #preloader{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:var(--bg-1); z-index:99998; transition: opacity .3s ease, visibility .3s; }
+    #preloader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+    .preloader-box{ display:flex; gap:14px; align-items:center; padding:18px 22px; border-radius:14px; background: linear-gradient(90deg, rgba(139,92,246,0.06), rgba(96,165,250,0.03)); box-shadow:var(--soft-shadow); backdrop-filter: blur(6px); }
+    .spinner{ width:44px; height:44px; border-radius:50%; border:5px solid rgba(0,0,0,0.06); border-top-color:var(--primary); animation: spin 1s linear infinite; }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    /* Header */
+    header{
+      padding:34px 18px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.95), rgba(96,165,250,0.92));
+      color:white; text-align:center; position:relative; overflow:hidden; border-bottom-left-radius:18px; border-bottom-right-radius:18px;
+      box-shadow: 0 20px 50px rgba(15,23,42,0.08);
+    }
+    header .hero-inner{ max-width:1100px; margin:0 auto; position:relative; z-index:5; }
+    header h1{ margin:0; font-family:"Poppins", Inter, sans-serif; font-weight:700; font-size:2.05rem; letter-spacing:0.2px; color: #fff; text-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+    header p.lead{ margin:8px 0 0 0; opacity:0.95; font-weight:500; font-size:1.02rem; color: rgba(255,255,255,0.95); }
+
+    .header-actions{ display:flex; gap:10px; justify-content:center; margin-top:12px; align-items:center; flex-wrap:wrap; }
+
+    /* CTA Buttons */
+    .btn-cta{ display:inline-flex; gap:10px; align-items:center; font-weight:700; padding:10px 14px; border-radius:10px; background:linear-gradient(90deg,#fff, rgba(255,255,255,0.96)); color:var(--primary); text-decoration:none; box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+    .btn-ghost{ display:inline-block; padding:10px 12px; border-radius:10px; color:#fff; border:1px solid rgba(255,255,255,0.08); text-decoration:none; font-weight:600; background: transparent; }
+
+    header .meta-row{ margin-top:14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; color:rgba(255,255,255,0.95); font-weight:500; }
+
+    main{ max-width:1100px; margin: 22px auto; padding: 0 18px 80px; z-index:5; position:relative; }
+
+    section{ margin-bottom:18px; }
+    h2.section-title{ color:var(--primary); margin:6px 0 12px; font-size:1.12rem; }
+
+    /* Card / Glass */
+    .card{
+      background: var(--card);
+      padding:16px;
+      border-radius: var(--radius);
+      box-shadow: var(--soft-shadow);
+      border:1px solid var(--glass-border);
+      transition: transform .24s cubic-bezier(.2,.9,.2,1), box-shadow .24s ease;
+      backdrop-filter: blur(var(--glass-blur));
+      overflow:hidden;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 24px 50px rgba(15,23,42,0.08); }
+    .meta{ color:var(--muted); margin:8px 0; font-size:0.95rem; }
+
+    /* Accordion (same style everywhere) */
+    .accordion { margin-bottom:10px; border-radius:10px; overflow:hidden; border:1px solid rgba(15,23,42,0.04); }
+    .accordion-header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; cursor:pointer;
+      background: linear-gradient(90deg, rgba(255,245,250,0.6), rgba(244,249,255,0.4));
+      font-weight:700; color:var(--text);
+      transition: background .15s ease, transform .12s ease;
+    }
+    .accordion-header:hover{ transform: translateY(-3px); }
+    .accordion-left{ display:flex; gap:12px; align-items:center; }
+    .project-title{ font-size:0.98rem; }
+    .project-mute{ font-size:0.86rem; color:var(--muted); font-weight:600; }
+
+    .project-actions{ display:flex; align-items:center; gap:8px; }
+    .icon-btn{
+      width:40px; height:40px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+      border:1px solid rgba(15,23,42,0.04); cursor:pointer; transition: transform .12s ease, box-shadow .12s;
+      box-shadow: 0 8px 18px rgba(2,6,23,0.06);
+    }
+    .icon-btn:hover{ transform: translateY(-4px) scale(1.03); box-shadow: 0 18px 36px rgba(2,6,23,0.08) }
+
+    .accordion-content{ max-height:0; overflow:hidden; transition: max-height .32s cubic-bezier(.2,.95,.2,1), padding .2s linear; padding:0 14px; background:transparent; }
+    .accordion-content.open{ padding:12px 14px 16px 14px; }
+
+    /* Filters */
+    .filters{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+    .filter-btn{ padding:8px 12px; border-radius:8px; background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.7)); border:1px solid rgba(15,23,42,0.04); cursor:pointer; font-weight:700; transition:transform .12s ease; }
+    .filter-btn.active{ background: linear-gradient(90deg,var(--accent),var(--primary)); color:white; transform: translateY(-3px); box-shadow: 0 16px 40px rgba(59,130,246,0.12) }
+
+    /* Modal */
+    .modal-backdrop{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:99997; background: rgba(2,6,23,0.28); opacity:0; pointer-events:none; transition: opacity .18s ease; backdrop-filter: blur(4px); }
+    .modal-backdrop.open{ opacity:1; pointer-events:auto; }
+    .modal{ width: min(920px, 94%); max-height: 86vh; overflow:auto; border-radius:14px; padding:18px; position:relative; background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.68)); border: 1px solid var(--glass-border); box-shadow: 0 30px 60px rgba(2,6,23,0.12); backdrop-filter: blur(12px) saturate(120%); transform: translateY(18px) scale(.98); transition: transform .28s cubic-bezier(.2,.9,.25,1), opacity .18s; }
+    .modal-backdrop.open .modal{ transform: translateY(0) scale(1) }
+    .modal h3{ margin:0 0 6px 0; font-family:"Poppins", Inter, sans-serif; color:var(--primary); }
+    .modal .modal-meta{ color:var(--muted); margin-bottom:8px; font-size:0.95rem; }
+    .modal .modal-body{ font-size:0.98rem; color:var(--text); }
+    .modal ul{ margin:10px 0 0 18px; color:var(--text); }
+    .close-x{ position:absolute; right:12px; top:12px; width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75)); border:1px solid rgba(0,0,0,0.04); }
+
+    /* Footer / back to top */
+    footer{ text-align:center; padding:18px 12px; margin-top:22px; border-radius:10px; background: linear-gradient(90deg,var(--primary),var(--accent)); color:white; }
+    #backTop{ position: fixed; right:18px; bottom:18px; z-index:99999; width:56px; height:56px; border-radius:14px; background: linear-gradient(90deg,var(--accent),var(--primary)); color:white; border:none; cursor:pointer; box-shadow: 0 18px 40px rgba(2,6,23,0.16); display:flex; align-items:center; justify-content:center; font-size:20px; transition: transform .14s ease; }
+    #backTop:hover{ transform: translateY(-6px) }
+
+    /* Dark toggle container (new) */
+    .toggle-wrap{ display:flex; gap:8px; align-items:center; justify-content:center; margin-left:10px; }
+    .toggle-sky {
+      width: var(--toggle-w);
+      height: var(--toggle-h);
+      border-radius: 999px;
+      padding: 4px;
+      position: relative;
+      display:inline-flex;
       align-items:center;
-      gap:10px;
+      box-shadow: 0 8px 24px rgba(2,6,23,0.06);
+      cursor:pointer;
+      border: 1px solid rgba(15,23,42,0.04);
+      transition: background .45s ease, box-shadow .35s ease;
+      overflow: visible;
+      background: linear-gradient(90deg, var(--sky-day-1), var(--sky-day-2));
     }
-    .accordion-header:hover { filter:brightness(.98); }
-    .accordion-title { font-size: 0.98rem; }
-    .accordion-caret { transition: transform .25s ease; font-size: 0.92rem; opacity:0.9; }
+    body.dark .toggle-sky { background: linear-gradient(90deg, var(--sky-night-1), var(--sky-night-2)); box-shadow: 0 12px 36px rgba(46,72,112,0.28); border-color: rgba(124,231,255,0.06); }
 
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      background: #fff;
-      transition: max-height .32s ease;
-      padding: 0 14px;
+    .toggle-track {
+      width: calc(var(--toggle-w) - 8px);
+      height: calc(var(--toggle-h) - 8px);
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      padding:4px;
+      position: relative;
+      transform-origin:center;
     }
-    .accordion-content.open { padding: 12px 14px 14px 14px; }
 
-    .meta { font-size: 0.95rem; color:#374151; margin:4px 0; }
-
-    footer {
-      background: #4f46e5;
-      color: white;
-      text-align: center;
-      padding: 18px 10px;
-      margin-top: 10px;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
+    .theme-icon {
+      width:28px; height:28px; display:inline-block; transform-origin:center; transition: transform .45s cubic-bezier(.2,.9,.2,1), opacity .28s;
+      will-change: transform, opacity;
     }
-    footer a { color: #facc15; margin: 0 8px; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
 
-    /* Responsive */
-    @media (max-width:760px){
-      header h1 { font-size:1.6rem; }
-      .btn { padding: 8px 12px; font-size:0.9rem; }
-      main { padding: 8px; }
+    .toggle-knob {
+      position:absolute;
+      top:50%; transform: translateY(-50%);
+      width:40px; height:40px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+      transition: left .38s cubic-bezier(.2,.9,.2,1), transform .38s;
+      left:6px;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));
+    }
+    body.dark .toggle-knob { left: calc(var(--toggle-w) - 46px); }
+
+    /* small decorative clouds for day (inside toggle) */
+    .cloud {
+      position:absolute; top:6px; right:6px; width:18px; height:6px; border-radius:6px; background: rgba(255,255,255,0.9);
+      opacity:0.9; filter: blur(.6px);
+    }
+    body.dark .cloud { opacity:0; transform: translateY(-6px); transition: opacity .35s, transform .35s; }
+
+    /* sparkle styles (gold stars) */
+    .sparkle {
+      position: absolute;
+      width: 8px; height: 8px; pointer-events:none;
+      transform-origin:center;
+      opacity:0;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+    }
+    .sparkle svg { width:100%; height:100%; display:block; }
+
+    /* star pop animation */
+    @keyframes sparkle-pop {
+      0% { transform: scale(.2) translateY(0); opacity:0; }
+      30% { transform: scale(1.05) translateY(-6px); opacity:1; }
+      70% { transform: scale(.9) translateY(-10px); opacity:0.9; }
+      100% { transform: scale(.6) translateY(-18px); opacity:0; }
+    }
+
+    /* small bounce for cards during theme change */
+    .theme-bounce { animation: theme-bounce 420ms cubic-bezier(.2,.9,.2,1); }
+    @keyframes theme-bounce {
+      0% { transform: translateY(0) scale(1); }
+      40% { transform: translateY(-6px) scale(1.02); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* Typewriter */
+    .typewriter{ display:inline-block; font-weight:700; }
+
+    /* Animations (soft) */
+    .fade-up{ transform: translateY(8px); opacity:0; transition: all .45s cubic-bezier(.2,.9,.2,1); }
+    .fade-up.in{ transform: translateY(0); opacity:1; }
+
+    @media (max-width:780px){
+      header h1{ font-size:1.6rem; }
+      .toggle-sky{ width:56px; height:32px; }
+      .toggle-knob{ width:36px; height:36px }
+      .theme-icon{ width:22px; height:22px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Top progress -->
+  <div id="topProgress"></div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-box">
+      <div class="spinner" aria-hidden="true"></div>
+      <div>
+        <div style="font-weight:800; color:var(--primary)">Kapil Suthraye</div>
+        <div style="font-size:0.95rem; color:var(--muted)">Loading — hang tight for a tiny sparkle...</div>
+      </div>
+    </div>
+  </div>
+
   <header>
-    <h1>Kapil Narayan Rao Suthraye</h1>
-    <p>Software Engineer • Full Stack Developer • Data Engineer</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#achievements">Achievements</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="hero-inner">
+      <h1>Kapil Narayan Rao Suthraye</h1>
+      <p class="lead"> <span id="typewriter" class="typewriter">Software Engineer</span></p>
+
+      <div class="header-actions" style="margin-top:14px;">
+        <a class="btn-cta" href="#experience">View Experience</a>
+        <a class="btn-ghost" href="#projects">See Projects</a>
+        <a class="btn-ghost" href="mailto:kapilnarayanraosuthraye@gmail.com" id="copyEmailBtn">✉️ Email</a>
+
+        <!-- Toggle with sky background -->
+        <div class="toggle-wrap" title="Toggle theme">
+          <div class="toggle-sky" id="toggleSky" aria-hidden="false" role="button">
+            <div class="toggle-track">
+              <div class="toggle-knob" id="toggleKnob" aria-hidden="true">
+                <!-- knob contains icon (svg) -->
+                <span class="theme-icon" id="themeIconWrap" aria-hidden="true">
+                  <!-- default icons inserted by JS -->
+                </span>
+              </div>
+
+              <!-- small decorative cloud for day mode -->
+              <div class="cloud" aria-hidden="true" style="left:8px;"></div>
+            </div>
+            <!-- sparkle container -->
+            <div id="sparkleContainer" style="position:absolute; inset:0; pointer-events:none;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta-row" style="margin-top:14px;">
+        <div>Hyderabad, India</div>
+        <div>|</div>
+        <div><a href="https://linkedin.com/in/kapil-suthraye-839349194" style="color:rgba(255,255,255,0.95); text-decoration:none" target="_blank">LinkedIn</a></div>
+        <div>|</div>
+        <div><a href="https://leetcode.com/u/Kapil_suthraye/" style="color:rgba(255,255,255,0.95); text-decoration:none" target="_blank">LeetCode</a></div>
+      </div>
+    </div>
   </header>
 
   <main>
-    <section id="about">
-      <div class="card">
-        <h2>About Me</h2>
-        <p class="meta">Software Engineer with 2+ years of experience in data ingestion and full stack development. Skilled in Python, MS SQL Server, Angular and building reliable data pipelines. Passionate about automation, scalability and operational excellence.</p>
-        <div class="top-actions">
-          <a class="btn" href="Kapil_Software_Engineer_Resume.pdf" target="_blank">📄 View Resume</a>
-          <a class="btn" href="mailto:kapilnarayanraosuthraye@gmail.com">✉️ Email</a>
+    <!-- ABOUT -->
+    <section id="about" class="fade-up">
+      <h2 class="section-title">About Me</h2>
+      <div class="card accordion" data-section="about">
+        <div class="accordion-header">
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">About</div>
+              <div class="project-mute">2+ years — Data ingestion, automation & full-stack</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="about" title="Open">🔍</button>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Software Engineer with 2+ years of experience in data ingestion, automation and full-stack development. Skilled in Python, MS SQL Server, Angular and building reliable data pipelines. Passionate about automation, scalability and operational excellence.</p>
         </div>
       </div>
     </section>
 
-    <section id="skills">
-      <h2>Technical Skills</h2>
-      <div class="accordion card">
+    <!-- SKILLS -->
+    <section id="skills" class="fade-up">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="card accordion" data-section="skills">
         <div class="accordion-header">
-          <span class="accordion-title">Languages & Tools</span>
-          <span class="accordion-caret">➕</span>
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">Skills Overview</div>
+              <div class="project-mute">Languages, Data Engineering, Tools</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="skills" title="Open">🔍</button>
+          </div>
         </div>
         <div class="accordion-content">
-          <p class="meta"><strong>List:</strong> Python, SQL, MS SQL Server, Angular, HTML, CSS, .NET, HDFS, GCP, Juniper</p>
-          <p><strong>Details:</strong> Built enterprise Angular front-ends and wrote back-end ingestion scripts in Python; wrote stored procedures and optimized queries in MS SQL Server; developed pipelines that land data into BigQuery and HDFS for analytics.</p>
-        </div>
-      </div>
-
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">Data Engineering</span>
-          <span class="accordion-caret">➕</span>
-        </div>
-        <div class="accordion-content">
-          <p class="meta"><strong>List:</strong> Data ingestion, ETL, batch & real-time feeds, pipeline development, automation</p>
-          <p><strong>Details:</strong> Individually handled ~400 feeds and part of team managing 700+; implemented incremental & full load strategies; designed error-handling, monitoring and alerting for production feeds.</p>
-        </div>
-      </div>
-
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">Other Tools</span>
-          <span class="accordion-caret">➕</span>
-        </div>
-        <div class="accordion-content">
-          <p class="meta">JIRA, Shell scripting, CI/CD basics</p>
-          <p><strong>Details:</strong> Automated routine tasks using shell scripts and integrated deployments with CI/CD pipelines. Tracked and managed work using JIRA.</p>
+          <p class="meta"><strong>Languages & Tools:</strong> Python, SQL, MS SQL Server, Angular, HTML, CSS, .NET, HDFS, GCP, Juniper (ingestion)</p>
+          <p class="meta"><strong>Data Engineering:</strong> Data pipelines, batch & real-time feeds, automation, Ansible, shell scripting, BigQuery, Hadoop</p>
+          <p class="meta"><strong>Other:</strong> JIRA, Git, Linux, Cron</p>
         </div>
       </div>
     </section>
 
-    <section id="experience">
-      <h2>Work Experience</h2>
+    <!-- EXPERIENCE -->
+    <section id="experience" class="fade-up">
+      <h2 class="section-title">Work Experience</h2>
 
-      <div class="accordion card">
+      <div class="accordion card" data-tags="work">
         <div class="accordion-header">
-          <span class="accordion-title">Software Engineer – LTIMindtree | HSBC (2024–Present)</span>
-          <span class="accordion-caret">➕</span>
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">Software Engineer — LTIMindtree | HSBC (2024 – Present)</div>
+              <div class="project-mute">Managed 700+ data feeds • GCP / BigQuery / Hadoop</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="exp-ltimindtree" title="View Full Details">🔍</button>
+          </div>
         </div>
         <div class="accordion-content">
-          <p class="meta">Managed 700+ data feeds | Automated GCP key rotation | Built pipelines to BigQuery & Hadoop</p>
-          <p><strong>What I did:</strong> Designed and operated ingestion pipelines from Linux sources into BigQuery/Hadoop for downstream analytics. Implemented automated rotation of JSON keys for GCP targets to avoid feed failures and reduce manual intervention.</p>
-          <p><strong>Impact:</strong> Improved reliability of data feeds and reduced on-call alerts related to credential expiry.</p>
+          <p class="meta">Designed and operated ingestion pipelines from Linux sources into BigQuery and HDFS. Implemented automation for credential rotation and monitoring, improving reliability and reducing on-call alerts.</p>
         </div>
       </div>
 
-      <div class="accordion card">
+      <div class="accordion card" data-tags="work">
         <div class="accordion-header">
-          <span class="accordion-title">Graduate Engineer Trainee – L&T Construction (2023–2024)</span>
-          <span class="accordion-caret">➕</span>
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">Graduate Engineer Trainee — L&T Construction (2023 – 2024)</div>
+              <div class="project-mute">Angular • MS SQL Server • Payroll automation</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="exp-lt" title="View Full Details">🔍</button>
+          </div>
         </div>
         <div class="accordion-content">
-          <p class="meta">Built automated wage system | Grievance tracker | Stored procedures</p>
-          <p><strong>What I did:</strong> Developed an Angular front-end and MS SQL Server back-end to automate wage calculation and created a module to log and resolve worker grievances.</p>
-          <p><strong>Impact:</strong> Reduced manual payroll effort and improved transparency for worker issues.</p>
+          <p class="meta">Built automated wage calculation system using Angular and SQL Server, developed grievance tracking module and management reporting stored procedures.</p>
         </div>
       </div>
 
-      <div class="accordion card">
+      <div class="accordion card" data-tags="work">
         <div class="accordion-header">
-          <span class="accordion-title">Python Developer Intern – Cognizant (2023)</span>
-          <span class="accordion-caret">➕</span>
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">Python Developer Intern — Cognizant (2023)</div>
+              <div class="project-mute">Python • SQL • Data processing</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="exp-cognizant" title="View Full Details">🔍</button>
+          </div>
         </div>
         <div class="accordion-content">
-          <p class="meta">Python & SQL projects | Team collaboration</p>
-          <p><strong>What I did:</strong> Completed Python projects that strengthened problem-solving and data processing skills while collaborating with cross-functional teams.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">Data Ingestion on GCP</span>
-          <span class="accordion-caret">➕</span>
-        </div>
-        <div class="accordion-content">
-          <p class="meta">Tech: Python, GCP, BigQuery, Hadoop</p>
-          <p><strong>Overview:</strong> Designed pipelines to move transactional banking data from Linux sources into BigQuery and HDFS. Implemented monitoring, automated credential management, and retry/error handling.</p>
-          <p><strong>Outcome:</strong> Scaled ingestion to 400+ feeds per person and integrated monitoring dashboards for SLA tracking.</p>
-        </div>
-      </div>
-
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">Construction Wage System</span>
-          <span class="accordion-caret">➕</span>
-        </div>
-        <div class="accordion-content">
-          <p class="meta">Tech: Angular, MS SQL Server</p>
-          <p><strong>Overview:</strong> Built an application to calculate wages and track worker grievances with reporting stored procedures for management.</p>
-          <p><strong>Outcome:</strong> Automated payroll calculations and reduced errors in wage computation.</p>
-        </div>
-      </div>
-
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">Incremental Data Loads</span>
-          <span class="accordion-caret">➕</span>
-        </div>
-        <div class="accordion-content">
-          <p class="meta">Tech: Oracle, Linux, Shell scripting</p>
-          <p><strong>Overview:</strong> Performed a one-time 60GB full load and then implemented incremental load patterns to optimize performance and reduce processing time.</p>
-          <p><strong>Outcome:</strong> Reduced load times and improved data freshness for downstream consumers.</p>
+          <p class="meta">Completed Python and SQL projects to strengthen problem-solving and data processing skills while collaborating with cross-functional teams.</p>
         </div>
       </div>
     </section>
 
-    <section id="certifications">
-      <h2>Certifications</h2>
+    <!-- PROJECTS (reordered as requested) -->
+    <section id="projects" class="fade-up">
+      <h2 class="section-title">Projects</h2>
 
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">Data Structures and Algorithms using Python (NPTEL, MTA)</span>
-          <span class="accordion-caret">➕</span>
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+        <div class="filters" id="projectFilters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="banking">Banking</button>
+          <button class="filter-btn" data-filter="ingestion">Ingestion</button>
+          <button class="filter-btn" data-filter="frontend">Frontend</button>
+          <button class="filter-btn" data-filter="automation">Automation</button>
         </div>
-        <div class="accordion-content">
-          <p class="meta">Learned algorithm design, complexity analysis, and problem-solving using Python.</p>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div style="font-weight:700; color:var(--muted); font-size:0.92rem;">Projects: <span id="projectCount">6</span></div>
         </div>
       </div>
 
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">Angular Certification (Udemy)</span>
-          <span class="accordion-caret">➕</span>
+      <div id="projectsList">
+        <!-- 1. Tier Migration -->
+        <div class="accordion" data-tags="banking,ingestion,automation">
+          <div class="accordion-header">
+            <div class="accordion-left">
+              <div>
+                <div class="project-title">Initiative Tier Migration — Juniper Feed Migration & Automation</div>
+                <div class="project-mute">Migrated 4,000+ Juniper feeds across HSBC (Tier-2 → Tier-1)</div>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="icon-btn" data-project="tier-migration" title="View Full Details">🔍</button>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <p class="meta">Automated large-scale migration using Ansible and standardized deployment patterns to reduce manual risk.</p>
+          </div>
         </div>
-        <div class="accordion-content">
-          <p class="meta">Built end-to-end Angular apps and learned components, routing, and services.</p>
-        </div>
-      </div>
 
-      <div class="accordion card">
-        <div class="accordion-header">
-          <span class="accordion-title">The Joy of Computing Using Python (NPTEL)</span>
-          <span class="accordion-caret">➕</span>
+        <!-- 2. Incremental Loads -->
+        <div class="accordion" data-tags="ingestion">
+          <div class="accordion-header">
+            <div class="accordion-left">
+              <div>
+                <div class="project-title">Incremental Data Loads</div>
+                <div class="project-mute">60GB full-load followed by optimized incremental loads</div>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="icon-btn" data-project="incremental-loads" title="View Full Details">🔍</button>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <p class="meta">Implemented incremental workflows and error-handling for SLA-compliant refresh cycles.</p>
+          </div>
         </div>
-        <div class="accordion-content">
-          <p class="meta">Hands-on assignments covering Python basics, problem-solving, and data structures.</p>
-        </div>
-      </div>
 
-      <div class="accordion card">
+        <!-- 3. MENA App -->
+        <div class="accordion" data-tags="banking,ingestion">
+          <div class="accordion-header">
+            <div class="accordion-left">
+              <div>
+                <div class="project-title">MENA Mobile App — Card Data Ingestion</div>
+                <div class="project-mute">Secure transfer of card details from Juniper NAS → GCP</div>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="icon-btn" data-project="mena-app" title="View Full Details">🔍</button>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <p class="meta">Built secure Data Pipeline to make card data available for mobile app backend with validation and logging.</p>
+          </div>
+        </div>
+
+        <!-- 4. Data Ingestion on GCP -->
+        <div class="accordion" data-tags="ingestion,banking">
+          <div class="accordion-header">
+            <div class="accordion-left">
+              <div>
+                <div class="project-title">Data Ingestion on GCP</div>
+                <div class="project-mute">Pipelines moving transactional data to BigQuery & Hadoop</div>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="icon-btn" data-project="gcp-ingestion" title="View Full Details">🔍</button>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <p class="meta">Monitoring, credential management, and retry/error handling implemented for production feeds.</p>
+          </div>
+        </div>
+
+        <!-- 5. DCPCA -->
+        <div class="accordion" data-tags="ingestion,automation">
+          <div class="accordion-header">
+            <div class="accordion-left">
+              <div>
+                <div class="project-title">DCPCA — Data Ingestion & Pipeline Automation</div>
+                <div class="project-mute">GCP → Linux ingestion pipelines</div>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="icon-btn" data-project="dcpca" title="View Full Details">🔍</button>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <p class="meta">Designed automated feeds with logging, validation, and scheduling for production reliability.</p>
+          </div>
+        </div>
+
+        <!-- 6. Construction Wage System -->
+        <div class="accordion" data-tags="frontend">
+          <div class="accordion-header">
+            <div class="accordion-left">
+              <div>
+                <div class="project-title">Construction Wage System</div>
+                <div class="project-mute">Angular + MS SQL Server application for payroll and grievances</div>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="icon-btn" data-project="construction-wage" title="View Full Details">🔍</button>
+            </div>
+          </div>
+          <div class="accordion-content">
+            <p class="meta">Automated wage calculations and grievance tracking for construction sites.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="fade-up">
+      <h2 class="section-title">Certifications</h2>
+      <div class="card accordion" data-section="certifications">
         <div class="accordion-header">
-          <span class="accordion-title">Certified in Data Structures and Algorithms (Hey Coach)</span>
-          <span class="accordion-caret">➕</span>
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">Certifications</div>
+              <div class="project-mute">NPTEL, Udemy, Hey Coach</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="certs" title="Open">🔍</button>
+          </div>
         </div>
         <div class="accordion-content">
-          <p class="meta">Certified competency in core algorithms and interview problem solving.</p>
+          <ul style="margin:6px 0 0 18px;">
+            <li>Data Structures & Algorithms using Python — NPTEL</li>
+            <li>Angular Certification — Udemy</li>
+            <li>The Joy of Computing Using Python — NPTEL</li>
+            <li>Certified in DSA — Hey Coach</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section id="achievements">
-      <h2>Achievements</h2>
-      <div class="accordion card">
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" class="fade-up">
+      <h2 class="section-title">Achievements</h2>
+      <div class="card accordion" data-section="achievements">
         <div class="accordion-header">
-          <span class="accordion-title">Awarded “Super Crew” by LTIMindtree</span>
-          <span class="accordion-caret">➕</span>
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">Award: Super Crew</div>
+              <div class="project-mute">LTIMindtree — Recognized for teamwork & client issue resolution</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="achieve" title="Open">🔍</button>
+          </div>
         </div>
         <div class="accordion-content">
-          <p class="meta">Recognized for teamwork and resolving critical client issues at HSBC.</p>
+          <p class="meta">Awarded "Super Crew" at LTIMindtree for pro-active issue resolution and collaboration with client teams at HSBC.</p>
         </div>
       </div>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="card">
-        <p class="meta">Email: <a href="mailto:kapilnarayanraosuthraye@gmail.com">kapilnarayanraosuthraye@gmail.com</a></p>
-        <p class="meta">LinkedIn: <a href="https://linkedin.com/in/kapil-suthraye-839349194" target="_blank">linkedin.com/in/kapil-suthraye-839349194</a></p>
-        <p class="meta">LeetCode: <a href="https://leetcode.com/u/Kapil_suthraye/" target="_blank">leetcode.com/u/Kapil_suthraye</a></p>
+    <!-- CONTACT -->
+    <section id="contact" class="fade-up">
+      <h2 class="section-title">Contact</h2>
+      <div class="card accordion" data-section="contact">
+        <div class="accordion-header">
+          <div class="accordion-left">
+            <div>
+              <div class="project-title">Get in touch</div>
+              <div class="project-mute">Email, LinkedIn, LeetCode</div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="icon-btn" data-project="contact" title="Open">🔍</button>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="meta">Email: <a href="mailto:kapilnarayanraosuthraye@gmail.com">kapilnarayanraosuthraye@gmail.com</a></p>
+          <p class="meta">LinkedIn: <a href="https://linkedin.com/in/kapil-suthraye-839349194" target="_blank">linkedin.com/in/kapil-suthraye-839349194</a></p>
+          <p class="meta">LeetCode: <a href="https://leetcode.com/u/Kapil_suthraye/" target="_blank">leetcode.com/u/Kapil_suthraye</a></p>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- Modal container -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="close-x" id="modalClose" title="Close">✖</button>
+      <div id="modalContent">
+        <h3 id="modalTitle">Project Title</h3>
+        <div class="modal-meta" id="modalMeta">Category • Tech • Date</div>
+        <div class="modal-body" id="modalBody">
+          <p id="modalIntro">Short intro sentence describing the project.</p>
+          <ul id="modalBullets"></ul>
+          <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+            <div style="font-weight:700; color:var(--muted);">Tech stack:</div>
+            <div id="modalTech" style="font-weight:600"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button id="backTop" title="Back to top">↑</button>
+
+  <!-- Footer -->
   <footer>
-    <p>© 2025 Kapil Suthraye | Portfolio Website • Built with HTML, CSS & a bit of JS</p>
+    <div style="max-width:1100px; margin:0 auto; padding:8px 16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+        <div>© <span id="curYear"></span> Kapil Suthraye</div>
+        <div id="visitorCounter" style="font-weight:700">Visits: 0</div>
+      </div>
+    </div>
   </footer>
 
+  <!-- SCRIPT -->
   <script>
-    // Smooth accordion toggle using max-height
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const caret = header.querySelector('.accordion-caret') || header.children[header.children.length-1];
-        const content = header.nextElementSibling;
+    /* Helpers */
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+    document.getElementById('curYear').textContent = new Date().getFullYear();
 
-        // close other open accordions in the same section (optional: allow multiple open by commenting out)
-        const parentSection = header.closest('section');
-        if (parentSection) {
-          parentSection.querySelectorAll('.accordion-content').forEach(c => {
-            if (c !== content) {
-              c.style.maxHeight = null;
-              c.classList.remove('open');
-              const ch = c.previousElementSibling;
-              if (ch) {
-                const cc = ch.querySelector('.accordion-caret');
-                if (cc) cc.textContent = '➕';
-              }
-            }
-          });
-        }
+    /* Preloader */
+    const preloader = $('#preloader');
+    window.addEventListener('load', () => {
+      setTimeout(()=> preloader.classList.add('hidden'), 420);
+      $('#topProgress').style.width = '100%';
+      setTimeout(()=> $('#topProgress').style.width = '0%', 600);
+      setTimeout(()=> $$('.fade-up').forEach(el=> el.classList.add('in')), 420);
+    });
 
-        if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-          content.style.maxHeight = null;
-          content.classList.remove('open');
-          if (caret) caret.textContent = '➕';
+    /* Top progress */
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight>0 ? (scrolled/docHeight)*100 : 0;
+      $('#topProgress').style.width = pct + '%';
+    });
+
+    /* Typewriter */
+    (function typeWriter(){
+      const el = $('#typewriter');
+      const phrases = ["Software Engineer", "Data Engineer", "Python Developer", "Full Stack Developer", "Angular Developer"];
+      let idx=0, pos=0, forward=true;
+      function tick(){
+        const text = phrases[idx];
+        if(forward){
+          pos++; el.textContent = text.slice(0,pos);
+          if(pos===text.length){ forward=false; setTimeout(tick,700); return; }
         } else {
-          content.style.maxHeight = content.scrollHeight + 'px';
-          content.classList.add('open');
-          if (caret) caret.textContent = '➖';
+          pos--; el.textContent = text.slice(0,pos);
+          if(pos===0){ forward=true; idx=(idx+1)%phrases.length; }
+        }
+        setTimeout(tick, 80 + Math.random()*40);
+      }
+      tick();
+    })();
+
+    /* Theme & Toggle with animated icons + sparkles */
+    const body = document.body;
+    const toggleSky = $('#toggleSky');
+    const toggleKnob = $('#toggleKnob');
+    const themeIconWrap = $('#themeIconWrap');
+    const sparkleContainer = $('#sparkleContainer');
+
+    // SVG icons (material-style simplified)
+    const SUN_SVG = `
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="4" fill="#FFD166"/>
+        <g stroke="#FFD166" stroke-width="1.4" stroke-linecap="round">
+          <path d="M12 1.8v2.4"/>
+          <path d="M12 19.8v2.4"/>
+          <path d="M4.2 4.2l1.7 1.7"/>
+          <path d="M18.1 18.1l1.7 1.7"/>
+          <path d="M1.8 12h2.4"/>
+          <path d="M19.8 12h2.4"/>
+          <path d="M4.2 19.8l1.7-1.7"/>
+          <path d="M18.1 5.9l1.7-1.7"/>
+        </g>
+      </svg>`;
+
+    const MOON_SVG = `
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.8A8.5 8.5 0 0 1 11.2 3 7 7 0 1 0 21 12.8z" fill="#DDEFFF"/>
+      </svg>`;
+
+    // create icon node
+    function setIcon(isDark){
+      themeIconWrap.innerHTML = isDark ? MOON_SVG : SUN_SVG;
+      themeIconWrap.style.transform = 'scale(.8) rotate(0deg)';
+      themeIconWrap.style.opacity = '0';
+      requestAnimationFrame(()=>{
+        themeIconWrap.style.transform = 'scale(1) rotate(360deg)';
+        themeIconWrap.style.opacity = '1';
+      });
+    }
+
+    // sparkles: gold star path
+    function createSparkle(x, y, delay){
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = x + 'px';
+      s.style.top = y + 'px';
+      s.style.opacity = 0;
+      s.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#FFD166" d="M12 2.4l1.7 3.9 4.2.6-3 2.8.7 4.1L12 13.8 8.4 17.4l.7-4.1-3-2.8 4.2-.6L12 2.4z"/></svg>`;
+      sparkleContainer.appendChild(s);
+      setTimeout(()=>{
+        s.style.opacity = 1;
+        s.style.animation = 'sparkle-pop 420ms forwards';
+      }, delay);
+      setTimeout(()=> s.remove(), 900);
+    }
+
+    // trigger star burst around knob center
+    function starBurst(centerX, centerY){
+      const count = 6;
+      for(let i=0;i<count;i++){
+        const angle = (Math.PI*2)*(i/count) + (Math.random()*0.6 - 0.3);
+        const dist = 18 + Math.random()*18;
+        const x = centerX + Math.cos(angle)*dist - 6; // adjust for element size
+        const y = centerY + Math.sin(angle)*dist - 6;
+        createSparkle(x, y, i*40);
+      }
+    }
+
+    // apply theme with animation
+    function applyTheme(theme, runEffects=true){
+      if(theme === 'dark') {
+        body.classList.add('dark');
+        localStorage.setItem('theme','dark');
+        setIcon(true);
+      } else {
+        body.classList.remove('dark');
+        localStorage.setItem('theme','light');
+        setIcon(false);
+      }
+      // animate cards (bounce) & knob rotation
+      if(runEffects){
+        $$('.card').forEach(c => { c.classList.remove('theme-bounce'); void c.offsetWidth; c.classList.add('theme-bounce'); });
+        toggleKnob.animate([{ transform: 'rotate(0deg) scale(1)' }, { transform: 'rotate(360deg) scale(1.05)' }, { transform: 'rotate(0deg) scale(1)' }], { duration: 480, easing: 'cubic-bezier(.2,.9,.2,1)' });
+        // sparkle both ways (sparkle mode C)
+        const rect = toggleKnob.getBoundingClientRect();
+        const centerX = rect.left + rect.width/2;
+        const centerY = rect.top + rect.height/2;
+        starBurst(centerX - sparkleContainer.getBoundingClientRect().left, centerY - sparkleContainer.getBoundingClientRect().top);
+      }
+    }
+
+    // init theme from storage or prefers
+    const saved = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(saved, false);
+
+    // toggle click
+    toggleSky.addEventListener('click', ()=> {
+      const isDark = body.classList.contains('dark');
+      applyTheme(isDark ? 'light' : 'dark', true);
+    });
+
+    /* Copy email button */
+    const copyBtn = $('#copyEmailBtn');
+    copyBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = 'kapilnarayanraosuthraye@gmail.com';
+      try{ await navigator.clipboard.writeText(email); copyBtn.textContent = 'Copied ✓'; setTimeout(()=> copyBtn.textContent = '✉️ Email', 1500); }
+      catch(e){ window.location = 'mailto:'+email; }
+    });
+
+    /* Back to top */
+    const backTop = $('#backTop');
+    backTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+    window.addEventListener('scroll', ()=> { backTop.style.display = window.scrollY>400 ? 'flex' : 'none'; });
+    backTop.style.display='none';
+
+    /* Visitor counter */
+    (function visitCount(){
+      const key = 'kapil_port_visits_final';
+      let v = Number(localStorage.getItem(key) || 0); v++; localStorage.setItem(key, v);
+      $('#visitorCounter').textContent = 'Visits: ' + v;
+    })();
+
+    /* Accordion logic */
+    function closeSiblings(parent, except=null){
+      parent.querySelectorAll('.accordion-content').forEach(c=>{ if(c !== except){ c.style.maxHeight = null; c.classList.remove('open'); } });
+    }
+    $$('.accordion').forEach(a=>{
+      const header = a.querySelector('.accordion-header');
+      const content = a.querySelector('.accordion-content');
+      header.addEventListener('click', (ev)=>{
+        if(ev.target.closest('.icon-btn')) return;
+        const isOpen = content.classList.contains('open');
+        closeSiblings(a.parentElement, isOpen ? null : content);
+        if(isOpen){ content.style.maxHeight = null; content.classList.remove('open'); } else { content.classList.add('open'); content.style.maxHeight = content.scrollHeight + 'px'; }
+      });
+    });
+
+    /* Modal & project data */
+    const projectData = {
+      'tier-migration': {
+        title: 'Initiative Tier Migration — Juniper Feed Migration & Automation',
+        meta: 'HSBC • Ansible • Ongoing',
+        intro: 'Led migration of production Juniper feeds across HSBC, automating and standardizing the process to ensure reliability and scale.',
+        bullets: [
+          'Owned migration of 4,000+ production Juniper feeds from Tier-2 to Tier-1 clusters.',
+          'Migrated 1,300+ feeds by October with zero production failures.',
+          'Automated migration pipelines using Ansible to reduce manual effort and errors.',
+          'Enabled repeatable and auditable rollouts across clusters.'
+        ],
+        tech: 'Juniper, Ansible, Linux, Shell scripting, GCP'
+      },
+      'incremental-loads': {
+        title: 'Incremental Data Loads',
+        meta: 'HSBC • Oracle & Linux',
+        intro: 'Implemented efficient incremental loading strategies after a 60GB full load to improve processing time and data freshness.',
+        bullets: [
+          'Completed a 60GB one-time full load with end-to-end validation.',
+          'Designed incremental load patterns to reduce processing overhead.',
+          'Built retry and error-handling mechanisms for robust SLAs.'
+        ],
+        tech: 'Oracle, Linux, Data Ingestion'
+      },
+      'mena-app': {
+        title: 'MENA Mobile App — Card Data Ingestion',
+        meta: 'MENA Mobile • Juniper NAS → GCP',
+        intro: 'Built secure ingestion workflows to move card details from Juniper NAS to GCP for the mobile backend.',
+        bullets: [
+          'Designed Data pipeline to securely transfer card-related data into GCP.',
+          'Implemented validation, logging and encryption to ensure compliance.',
+          'Optimized ingestion pipelines for reliability and timely availability.'
+        ],
+        tech: 'Juniper NAS, GCP, Python, Data Ingestion'
+      },
+      'gcp-ingestion': {
+        title: 'Data Ingestion on GCP',
+        meta: 'HSBC • BigQuery & Hadoop',
+        intro: 'Built production-grade ingestion pipelines to land transactional data into BigQuery and HDFS for analytics.',
+        bullets: [
+          'Developed pipelines to move banking data from Linux to BigQuery/HDFS.',
+          'Automated credential rotation and monitoring dashboards for SLA tracking.',
+          'Scaled ingestion to hundreds of feeds with alerting and retries.'
+        ],
+        tech: 'GCP, BigQuery, Hadoop, Python'
+      },
+      'dcpca': {
+        title: 'DCPCA — Data Ingestion & Pipeline Automation',
+        meta: 'HSBC • GCP → Linux',
+        intro: 'Solely owned the DCPCA project—building automated feeds from GCP into Linux systems.',
+        bullets: [
+          'Designed end-to-end ingestion automations with scheduling and monitoring.',
+          'Implemented data quality checks, logging and exception handling.',
+          'Reduced manual intervention and improved feed reliability.'
+        ],
+        tech: 'GCP, Python, Linux, Data Ingestion'
+      },
+      'construction-wage': {
+        title: 'Construction Wage System',
+        meta: 'L&T Construction • Angular & SQL Server',
+        intro: 'Built an application to automate wage calculation and track worker grievances for construction sites.',
+        bullets: [
+          'Created automated wage calculation module using Angular and SQL Server.',
+          'Developed grievance tracking and management reporting procedures.',
+          'Reduced manual payroll tasks and improved transparency.'
+        ],
+        tech: 'Angular, MS SQL Server, HTML, CSS'
+      },
+      'about': {
+        title: 'About',
+        meta: 'Profile',
+        intro: 'Software Engineer with 2+ years of experience in data ingestion, automation and full-stack development.',
+        bullets: [
+          'Skilled in Python, SQL, GCP, and developing production data pipelines.',
+          'Focused on automation, reliability and scalable systems.',
+          'Strong in collaboration and stakeholder communication.'
+        ],
+        tech: 'Python, SQL, GCP, Angular'
+      },
+      'skills': {
+        title: 'Skills',
+        meta: 'Technical Summary',
+        intro: 'Languages, tooling and data engineering expertise.',
+        bullets: [
+          'Python, SQL, MS SQL Server, Angular, HTML/CSS, .NET',
+          ' batch & real-time feeds, Ansible, Shell scripting, BigQuery, Kafka',
+          'JIRA, Git, Linux, Cron, Hadoop'
+        ],
+        tech: 'Python, SQL, Ansible, GCP'
+      },
+      'certs': {
+        title: 'Certifications',
+        meta: 'NPTEL, Udemy, Hey Coach',
+        intro: 'Professional certifications that strengthen foundational skills.',
+        bullets: [
+          'Data Structures & Algorithms using Python — NPTEL',
+          'Angular Certification — Udemy',
+          'The Joy of Computing Using Python — NPTEL',
+          'Certified in DSA — Hey Coach'
+        ],
+        tech: 'N/A'
+      },
+      'achieve': {
+        title: 'Achievements',
+        meta: 'Awards & Recognition',
+        intro: 'Recognition for teamwork and client impact.',
+        bullets: [
+          'Awarded "Super Crew" by LTIMindtree for resolving critical client issues at HSBC.'
+        ],
+        tech: ''
+      },
+      'contact': {
+        title: 'Contact',
+        meta: 'Reach out',
+        intro: 'Contact details and social links.',
+        bullets: [
+          'Email: kapilnarayanraosuthraye@gmail.com',
+          'LinkedIn: linkedin.com/in/kapil-suthraye-839349194',
+          'LeetCode: leetcode.com/u/Kapil_suthraye'
+        ],
+        tech: ''
+      },
+      'exp-ltimindtree': {
+        title: 'Software Engineer — LTIMindtree | HSBC',
+        meta: 'July 2024 – Present',
+        intro: 'Designed and operated ingestion pipelines for banking data and automated credential rotation and monitoring.',
+        bullets: [
+          'Managed and scaled 700+ production feeds.',
+          'Implemented automated JSON key rotation for GCP targets.',
+          'Improved reliability and reduced on-call alerts related to credential expiry.'
+        ],
+        tech: 'GCP, BigQuery, Hadoop, Python, Shell'
+      },
+      'exp-lt': {
+        title: 'Graduate Engineer Trainee — L&T Construction',
+        meta: 'July 2023 – July 2024',
+        intro: 'Built payroll automation and grievance tracking for construction sites.',
+        bullets: [
+          'Developed automated wage system using Angular & SQL Server.',
+          'Created grievance module and management reporting procedures.'
+        ],
+        tech: 'Angular, MS SQL Server'
+      },
+      'exp-cognizant': {
+        title: 'Python Developer Intern — Cognizant',
+        meta: 'Feb 2023 – Mar 2023',
+        intro: 'Internship projects focused on Python and SQL.',
+        bullets: [
+          'Completed Python & SQL assignments and collaborated on team projects.'
+        ],
+        tech: 'Python, SQL'
+      }
+    };
+
+    /* Modal handling */
+    const modalBackdrop = $('#modalBackdrop');
+    const modalTitle = $('#modalTitle');
+    const modalMeta = $('#modalMeta');
+    const modalIntro = $('#modalIntro');
+    const modalBullets = $('#modalBullets');
+    const modalTech = $('#modalTech');
+
+    function openModal(key){
+      const data = projectData[key];
+      if(!data) return;
+      modalTitle.textContent = data.title || '';
+      modalMeta.textContent = data.meta || '';
+      modalIntro.textContent = data.intro || '';
+      modalBullets.innerHTML = '';
+      (data.bullets || []).forEach(b => {
+        const li = document.createElement('li'); li.textContent = b; modalBullets.appendChild(li);
+      });
+      modalTech.textContent = data.tech || '';
+      modalBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){ modalBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+    $('#modalClose').addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e)=> { if(e.target === modalBackdrop) closeModal(); });
+    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeModal(); });
+
+    // icon buttons open modal
+    $$('.icon-btn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const key = btn.dataset.project;
+        if(key) openModal(key);
+      });
+    });
+
+    /* Filters */
+    $('#projectFilters').addEventListener('click', (e)=>{
+      const btn = e.target.closest('.filter-btn'); if(!btn) return;
+      $$('.filter-btn').forEach(b=> b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      const items = $$('#projectsList .accordion');
+      let count=0;
+      items.forEach(it=>{
+        const tags = it.dataset.tags ? it.dataset.tags.split(',') : [];
+        if(filter === 'all' || tags.includes(filter)) { it.style.display='block'; count++; }
+        else it.style.display='none';
+      });
+      $('#projectCount').textContent = count;
+    });
+
+    /* Smooth scroll for anchors */
+    $$('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href.length > 1){
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
         }
       });
     });
 
-    // Ensure accordion heights are recalculated on window resize (for responsiveness)
-    window.addEventListener('resize', () => {
-      document.querySelectorAll('.accordion-content.open').forEach(el => {
-        el.style.maxHeight = el.scrollHeight + 'px';
-      });
+    /* Recalc accordion heights on resize */
+    window.addEventListener('resize', ()=> {
+      $$('.accordion-content.open').forEach(el => { el.style.maxHeight = el.scrollHeight + 'px'; });
     });
+    setTimeout(()=> $$('.accordion-content.open').forEach(el => el.style.maxHeight = el.scrollHeight + 'px'), 600);
+
   </script>
 </body>
 </html>
